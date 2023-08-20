@@ -1,0 +1,11 @@
+.groupadd{
+    width: 30vw;
+    border: 1px solid black;
+}
+.groupadd1{
+    height: 7.5rem;
+    background-color: #202c33;
+    display: flex;
+    align-items: end;
+    gap: 2rem;
+}

@@ -1,0 +1,13 @@
+.main{
+    display: flex;
+    justify-content: space-between;
+}
+.groupsmain{
+    background-color: #111b21;
+}
+.chatsmain{
+    width: 70vw;
+    height: 100vh;
+    background-color: #222e35;
+    border-left: 1px solid rgba(255, 255, 255, 0.067);
+}
