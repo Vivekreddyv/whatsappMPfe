@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import '../styles/groups.css'
 import '../styles/addgroup.css'
+import Groupcard from './groupcard'
 
 const whatsapplogo = "https://play-lh.googleusercontent.com/bYtqbOcTYOlgc6gqZ2rwb8lptHuwlNE75zYJu6Bn076-hTmvd96HH-6v7S0YUAAJXoJN"
 
 const Groups = () => {
-    const [groupdata,setGroupdata]=useState()
+    const [groupdata,setGroupdata]=useState([])
+    console.log(groupdata)
     const[showadd,setShowadd]=useState(false)
     const [credentials,setCredentials]=useState({name:"",admin:"",imageurl:""})
     const handlevalue=(event)=>{
@@ -26,7 +28,12 @@ const Groups = () => {
         const json= await response.json()
         if(!json.success){
             alert('enter valid credentials')
+        }
+        if(json.success){
             setShowadd(false)
+            setTimeout(()=>{
+                getgroupsdata()
+            },1000)
         }
     }
     const getgroupsdata=async()=>{
@@ -36,7 +43,7 @@ const Groups = () => {
                 'Content-Type':'application/json'
             }})
         const data=await response.json()
-        setGroupdata(data)
+        setGroupdata(data[0])
     }
     useEffect(()=>{
         getgroupsdata()
@@ -65,7 +72,10 @@ const Groups = () => {
             <div style={{ height: '3rem', display: 'flex', alignItems: 'center' }}>
                 <input className='search' placeholder='search'></input>
             </div>
-            <
+            {groupdata.length===0? null:groupdata.map((data)=>(
+                <Groupcard key={data._id} data={data}/>
+            ))}
+            
         </div>}
         </div>
     )
