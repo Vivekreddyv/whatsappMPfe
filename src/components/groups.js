@@ -3,7 +3,6 @@ import '../styles/groupcard.css'
 import '../styles/groups.css'
 import '../styles/addgroup.css'
 import Groupcard from './groupcard'
-
 const whatsapplogo = "https://play-lh.googleusercontent.com/bYtqbOcTYOlgc6gqZ2rwb8lptHuwlNE75zYJu6Bn076-hTmvd96HH-6v7S0YUAAJXoJN"
 
 const Groups = () => {

@@ -6,10 +6,11 @@ const Main=()=>{
     return(
         <div className="main">
             <div className='groupsmain'>
-                
                 <Groups/>
             </div>
-            <div className='chatsmain'></div>
+            <div className='chatsmain'>
+                <h1>hii</h1>
+            </div>
         </div>
     )
 }
