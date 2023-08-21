@@ -12,8 +12,11 @@
     top: 0;
 }
 .chats1{
-    height: 82.4vh;
     background-color: #0b141a;
+    padding-top: 10rem;
+    overflow: auto;
+    max-height: 78vh;
+
 }
 .chats2{
     background-color: #202c33;
@@ -21,5 +24,4 @@
     width: 70vw;
     position: fixed;
     bottom: 0;
-
 }

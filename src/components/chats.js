@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import '../styles/chats.css'
 import Itemscard from './itemscard'
-const Chats = () => {
+const Chats = ({groupname}) => {
     const [showaddproduct, setShowaddproduct] = useState(false)
     const [credentials, setCredentials] = useState({ name: "", admin: "", imageurl: "" })
     const handlevalue = (event) => {
@@ -36,12 +36,14 @@ const Chats = () => {
             }
         })
         const json=await response.json()
-        setItems(json)
+        const data=json[0].filter((data)=>data.group===groupname)
+        console.log(data)
+        setItems(data)
   
     }
     useEffect(() => {
         getchatsdata()
-    }, [])
+    }, [groupname])
     return (
         <div>
             {!showaddproduct ?
@@ -49,6 +51,12 @@ const Chats = () => {
                     <div className="chats"></div>
                     <div className="chats1">
                         {items.map((data)=>(
+                            <Itemscard key={data._id} data={data}/>
+                        ))} {items.map((data)=>(
+                            <Itemscard key={data._id} data={data}/>
+                        ))} {items.map((data)=>(
+                            <Itemscard key={data._id} data={data}/>
+                        ))} {items.map((data)=>(
                             <Itemscard key={data._id} data={data}/>
                         ))}
                     </div>
