@@ -45,3 +45,13 @@
     cursor: pointer;
     padding-top: 0.3rem;
 }
+.itembtn{
+    height: 3rem;
+    width: 8rem;
+    background-color: #111b21;
+    color: rgba(255, 255, 255, 0.822);
+    margin-right: 2rem;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+}

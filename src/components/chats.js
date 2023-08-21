@@ -4,17 +4,17 @@ import '../styles/additem.css'
 import Itemscard from './itemscard'
 const Chats = ({groupname}) => {
     const [showaddproduct, setShowaddproduct] = useState(false)
-    const [credentials, setCredentials] = useState({ name: "",description:"",price:"",seller:"",group:"", imageurl: "", classname: "" })
+    const [credentials, setCredentials] = useState({ name: "",description:"",price:"",seller:"", imageurl: "", classname: "" })
     const handlevalue = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
     }
     const handleaddgroup = async () => {
-        const response = await fetch('http://localhost:5000/api/items', {
+        const response = await fetch('http://localhost:5000/api/itemsdata', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: credentials.name, description: credentials.description,price: credentials.price,seller: credentials.seller,group: credentials.group,classname: credentials.classname, imageurl: credentials.imageurl })
+            body: JSON.stringify({ name: credentials.name, description: credentials.description,price: credentials.price,seller: credentials.seller,group: groupname,classname: credentials.classname, imageurl: credentials.imageurl })
         })
         const json = await response.json()
         if (!json.success) {
@@ -36,6 +36,11 @@ const Chats = ({groupname}) => {
         const data=json[0].filter((data)=>data.group===groupname)
         setItems(data)
     }
+    const handleclass=(data)=>{
+        let updatedcredentials={...credentials}
+        updatedcredentials.classname=data
+        setCredentials(updatedcredentials)
+    }
     useEffect(() => {
         getchatsdata()
     })
@@ -48,13 +53,7 @@ const Chats = ({groupname}) => {
                     <div className="chats1">
                         {items.map((data)=>(
                             <Itemscard key={data._id} data={data}/>
-                        ))} {items.map((data)=>(
-                            <Itemscard key={data._id} data={data}/>
-                        ))} {items.map((data)=>(
-                            <Itemscard key={data._id} data={data}/>
-                        ))} {items.map((data)=>(
-                            <Itemscard key={data._id} data={data}/>
-                        ))}
+                        ))} 
                     </div>
                     <div className="chats2">
                     <button onClick={() => setShowaddproduct(true)} className='addgroup'>+</button>
@@ -71,8 +70,8 @@ const Chats = ({groupname}) => {
                         <input className='groupinputitem' placeholder='price' name='price' value={credentials.price} onChange={handlevalue}></input>
                         <input className='groupinputitem' placeholder='seller Name' name='seller' value={credentials.seller} onChange={handlevalue}></input>
                         <div>
-                        <button>BUYER</button>
-                        <button>SELLER</button>
+                        <button className='itembtn' onClick={()=>handleclass('left')}>BUYER</button>
+                        <button className='itembtn' onClick={()=>handleclass('right')}>SELLER</button>
                         </div>
                         <button onClick={handleaddgroup} className='tickitem'><i class="fa-solid fa-check"></i></button>
                     </div>

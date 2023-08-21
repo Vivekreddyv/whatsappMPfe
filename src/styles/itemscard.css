@@ -1,0 +1,76 @@
+.itemcardleft{
+    background-color: #202c33;
+    height: auto;
+    width: 18.5rem;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-left: 5rem;
+    padding-left: 0.5rem;
+}
+.itemcardright{
+    background-color: #202c33;
+    height: auto;
+    width: 18.5rem;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    margin-left: 45vw;
+    padding-left: 0.5rem;
+}
+.buybtnleft{
+    background-color: #202c33;
+    border-radius: 10px;
+    width: 9rem;
+    height: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 4rem;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+.buybtnright{
+    background-color: #202c33;
+    border-radius: 10px;
+    width: 9rem;
+    height: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 4rem;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+#buyleft{
+    margin-left: 5rem;
+    background-color: #202c33;
+    border-radius: 10px;
+    width: 9rem;
+    height: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 4rem;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+#buyright{
+    margin-left: 45vw;
+    background-color: #202c33;
+    border-radius: 10px;
+    width: 9rem;
+    height: 2rem;
+    margin-top: 0.5rem;
+    margin-bottom: 4rem;
+    color: white;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 1rem;
+}

@@ -1,8 +1,23 @@
-const Itemscard=({data})=>{
-    return(
+import '../styles/itemscard.css'
+const Itemscard = ({ data }) => {
+    return (
         <div>
-            <img src={data.imageurl} alt=''></img>
-            <h1>{data.name}</h1>
+            <div className={`itemcard${data.classname}`}>
+                <h3 style={{ color: 'white',textAlign:'center',marginTop:'0.5rem',marginBottom:'0.5rem' }}>{data.seller}</h3>
+                <img style={{ width: "18rem", height: '11rem', borderRadius: '10px' }} src={data.imageurl} alt=''></img>
+                <h2 style={{ color: 'white',marginLeft:'0.5rem',marginTop:'0.8rem',marginBottom:'0.8rem' }}>{data.name}</h2>
+                <h3 style={{ color: 'white',marginLeft:'0.5rem',marginTop:'0.8rem',marginBottom:'0.8rem' }}>{data.description}</h3>
+                <div style={{ display: 'flex' }}>
+                    <h3 style={{ color: 'white',marginLeft:'0.5rem',marginRight:'6rem',marginTop:'0.8rem',marginBottom:'1.5rem' }}><i class="fa-solid fa-indian-rupee-sign"></i>{data.price}</h3>
+                    <h3 style={{ color: 'white',marginTop:'0.8rem',marginBottom:'1.5rem' }}>{new Date(data.listeddate).toLocaleDateString('en-GB')}</h3>
+                </div>
+            </div>
+            <button id={`buy${data.classname}`}>
+                BUY NOW
+            </button>
+            <button className={`buybtn${data.classname}`}>
+                DELETE
+            </button>
         </div>
     )
 }
