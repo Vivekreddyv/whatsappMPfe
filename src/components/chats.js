@@ -1,23 +1,20 @@
 import { useEffect, useState } from 'react'
 import '../styles/chats.css'
+import '../styles/additem.css'
 import Itemscard from './itemscard'
 const Chats = ({groupname}) => {
     const [showaddproduct, setShowaddproduct] = useState(false)
-    const [credentials, setCredentials] = useState({ name: "", admin: "", imageurl: "" })
+    const [credentials, setCredentials] = useState({ name: "",description:"",price:"",seller:"",group:"", imageurl: "", classname: "" })
     const handlevalue = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
     }
     const handleaddgroup = async () => {
-        let imageurltosend = credentials.imageurl
-        if (!imageurltosend) {
-            imageurltosend = 'https://saiuniversity.edu.in/wp-content/uploads/2021/02/default-img.jpg'
-        }
         const response = await fetch('http://localhost:5000/api/items', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: credentials.name, admin: credentials.admin, imageurl: imageurltosend })
+            body: JSON.stringify({ name: credentials.name, description: credentials.description,price: credentials.price,seller: credentials.seller,group: credentials.group,classname: credentials.classname, imageurl: credentials.imageurl })
         })
         const json = await response.json()
         if (!json.success) {
@@ -37,18 +34,17 @@ const Chats = ({groupname}) => {
         })
         const json=await response.json()
         const data=json[0].filter((data)=>data.group===groupname)
-        console.log(data)
         setItems(data)
-  
     }
     useEffect(() => {
         getchatsdata()
-    }, [groupname])
+    })
     return (
         <div>
             {!showaddproduct ?
                 <div className="chat">
-                    <div className="chats"></div>
+                    <div className="chats">
+                    </div>
                     <div className="chats1">
                         {items.map((data)=>(
                             <Itemscard key={data._id} data={data}/>
@@ -60,17 +56,25 @@ const Chats = ({groupname}) => {
                             <Itemscard key={data._id} data={data}/>
                         ))}
                     </div>
-                    <div className="chats2"></div>
-                </div> : <div className='groupadd'>
-                    <div className='groupadd1'>
-                        <button onClick={() => setShowaddproduct(false)} style={{ border: 'none', backgroundColor: 'transparent', color: '#d9dee0', fontSize: '1.4rem', marginBottom: '1.2rem', marginLeft: '1.5rem', cursor: 'pointer' }}><i class="fa-solid fa-arrow-left"></i></button>
-                        <h3 style={{ color: '#d9dee0', fontSize: '1.3rem', fontWeight: '500' }}>New group</h3>
+                    <div className="chats2">
+                    <button onClick={() => setShowaddproduct(true)} className='addgroup'>+</button>
                     </div>
-                    <div className='groupadd2'>
-                        <input className='groupinput' placeholder='Group Subject' name='name' value={credentials.name} onChange={handlevalue}></input>
-                        <input className='groupinput' placeholder='Admin Name' name='admin' value={credentials.admin} onChange={handlevalue}></input>
-                        <input className='groupinput' placeholder='Profile Picture(optional)' name='imageurl' value={credentials.imageurl} onChange={handlevalue}></input>
-                        <button onClick={handleaddgroup} className='tick'><i class="fa-solid fa-check"></i></button>
+                </div> : <div className='groupadditem'>
+                    <div className='groupadd1item'>
+                        <button onClick={() => setShowaddproduct(false)} style={{ border: 'none', backgroundColor: 'transparent', color: '#d9dee0', fontSize: '1.4rem', marginBottom: '1.2rem', marginLeft: '1.5rem', cursor: 'pointer' }}><i class="fa-solid fa-arrow-left"></i></button>
+                        <h3 style={{ color: '#d9dee0', fontSize: '1.3rem', fontWeight: '500' }}>POST AD</h3>
+                    </div>
+                    <div className='groupadd2item'>
+                        <input className='groupinputitem' placeholder='Group Subject' name='name' value={credentials.name} onChange={handlevalue}></input>
+                        <input className='groupinputitem' placeholder='description' name='description' value={credentials.description} onChange={handlevalue}></input>
+                        <input className='groupinputitem' placeholder='product images' name='imageurl' value={credentials.imageurl} onChange={handlevalue}></input>
+                        <input className='groupinputitem' placeholder='price' name='price' value={credentials.price} onChange={handlevalue}></input>
+                        <input className='groupinputitem' placeholder='seller Name' name='seller' value={credentials.seller} onChange={handlevalue}></input>
+                        <div>
+                        <button>BUYER</button>
+                        <button>SELLER</button>
+                        </div>
+                        <button onClick={handleaddgroup} className='tickitem'><i class="fa-solid fa-check"></i></button>
                     </div>
                 </div>
             }

@@ -1,0 +1,47 @@
+.groupadditem{
+    width: 69.9vw;
+    height: 99.8vh;
+    background-color: #202c33;
+    border: 1px solid black;
+}
+.groupadd1item{
+    background-color: #202c33;
+    display: flex;
+    align-items: flex-end;
+    gap: 2rem;
+}
+.groupadd2item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 3rem;
+    margin-top: 5rem;
+}
+.groupinputitem{
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.523);
+    padding-bottom: 0.5rem;
+    font-size: 1.1rem;
+    width: 25vw;
+    color: rgba(255, 255, 255, 0.822);
+}
+.groupinputitem::placeholder{
+    color: rgba(255, 255, 255, 0.426);
+}
+.groupinputitem:focus{
+    outline: none;
+    border-bottom-color: #00a884;
+}
+.tickitem{
+    width: 3rem;
+    height: 3rem;
+    border: none;
+    border-radius: 50%;
+    background-color:#00a884 ;
+    font-size: 1.5rem;
+    color: white;
+    margin-top: 5vh;
+    cursor: pointer;
+    padding-top: 0.3rem;
+}

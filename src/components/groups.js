@@ -49,8 +49,8 @@ const Groups = ({ groupname }) => {
         const data = await response.json()
         setGroupdata(data[0])
     }
-    const handlegroupnamepass = () => {
-        let data = groupactive
+    const handlegroupnamepass = (datas) => {
+        let data = datas
         groupname(data)
     }
     useEffect(() => {
@@ -83,7 +83,7 @@ const Groups = ({ groupname }) => {
                     {groupdata.length === 0 ? null : groupdata.map((data) => (
                         <div onClick={() => {
                             setGroupactive(data.name)
-                            handlegroupnamepass()
+                            handlegroupnamepass(data.name)
                         }} className={`${handleactivegroup(`${data._id}`)}`}>
                             <Groupcard key={data._id} data={data} />
                         </div>

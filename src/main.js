@@ -7,6 +7,7 @@ import logo from './utils/whatsappweblogo.png'
 const Main=()=>{
    
     const[name,setName]=useState()
+    console.log(name)
     const groupname=(data)=>{
         setName(data)
     }
