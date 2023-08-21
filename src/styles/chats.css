@@ -1,0 +1,25 @@
+.chat{
+    width: 69.94vw;
+    background-color: #0b141a;
+    height: 100vh;
+    border-left: 1px solid rgba(255, 255, 255, 0.116);
+}
+.chats{
+    height: 4rem;
+    width: 70vw;
+    background-color: #202c33;
+    position: fixed;
+    top: 0;
+}
+.chats1{
+    height: 82.4vh;
+    background-color: #0b141a;
+}
+.chats2{
+    background-color: #202c33;
+    height: 4.2rem;
+    width: 70vw;
+    position: fixed;
+    bottom: 0;
+
+}
