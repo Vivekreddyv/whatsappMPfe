@@ -14,6 +14,14 @@
 }
 .groupscard{
     height: 5rem;
+    cursor: pointer;
+}
+.groupscard:hover{
+    background-color: #202c33;
+}
+.groupscardactive{
+    background-color: #2a3942;
+    cursor: pointer;
 }
 .date{
     position: absolute;

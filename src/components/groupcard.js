@@ -7,7 +7,6 @@ const Groupcard = ({ data }) => {
     const formatteddate = dateobject.toLocaleDateString('en-Gb')
     const handleactive=()=>{
         const value=data.groupactive
-        console.log(value)
         if(value){
            setStatus("Active")
         }else{
@@ -19,7 +18,10 @@ const Groupcard = ({ data }) => {
         handleactive()
     })
     return (
-        <div className='groupscard'>
+        <div onClick={()=>{
+            // setActive(data._id)
+            localStorage.setItem("groupid",data._id)
+        }}>
             <div style={{ display: 'flex',gap:'1rem' }}>
                 <img className='grouppic' src={data.imageurl} alt=''></img>
                 <div className='groups1'>

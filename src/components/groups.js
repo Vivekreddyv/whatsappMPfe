@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import '../styles/groupcard.css'
 import '../styles/groups.css'
 import '../styles/addgroup.css'
 import Groupcard from './groupcard'
@@ -6,8 +7,12 @@ import Groupcard from './groupcard'
 const whatsapplogo = "https://play-lh.googleusercontent.com/bYtqbOcTYOlgc6gqZ2rwb8lptHuwlNE75zYJu6Bn076-hTmvd96HH-6v7S0YUAAJXoJN"
 
 const Groups = () => {
+    const [groupactive,setGroupactive]=useState("")
+    console.log(groupactive)
+    const handleactivegroup=(id)=>{
+        return groupactive===id?"groupscardactive" : "groupscard"  
+    }
     const [groupdata,setGroupdata]=useState([])
-    console.log(groupdata)
     const[showadd,setShowadd]=useState(false)
     const [credentials,setCredentials]=useState({name:"",admin:"",imageurl:""})
     const handlevalue=(event)=>{
@@ -73,7 +78,11 @@ const Groups = () => {
                 <input className='search' placeholder='search'></input>
             </div>
             {groupdata.length===0? null:groupdata.map((data)=>(
+                <div onClick={()=>{
+            setGroupactive(data._id)
+                }} className={`${handleactivegroup(`${data._id}`)}`}>
                 <Groupcard key={data._id} data={data}/>
+                </div>
             ))}
             
         </div>}
