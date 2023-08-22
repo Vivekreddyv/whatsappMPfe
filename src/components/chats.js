@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import '../styles/chats.css'
 import '../styles/additem.css'
 import Itemscard from './itemscard'
-const Chats = ({ groupname,grouppicture }) => {
+const Chats = ({ groupname,grouppicture,groupid,groupdeletename }) => {
     const [showaddproduct, setShowaddproduct] = useState(false)
     const [credentials, setCredentials] = useState({ name: "", description: "", price: "", seller: "", imageurl: "", classname: "" })
     const handlevalue = (event) => {
@@ -47,6 +47,24 @@ const Chats = ({ groupname,grouppicture }) => {
     }
     const filtereditemsdata=items.filter((data)=>
     data.name.toLowerCase().includes(itemssearchquery.toLowerCase()))
+    const handlegroupdelete=async(data)=>{
+        const response=await fetch(`http://localhost:5000/api/deletegroup/${data}`,{
+            method:"DELETE",
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+        const json=await response.json()
+        if(json.success){
+            handlegroupdeletepass()
+        }
+        if(!json.success){
+            alert('something went wrong')
+        }
+    }
+    const handlegroupdeletepass=()=>{
+        groupdeletename('')
+    }
     useEffect(() => {
         getchatsdata()
     })
@@ -59,7 +77,10 @@ const Chats = ({ groupname,grouppicture }) => {
                         <img style={{width:'3rem',height:'3rem',borderRadius:'50%'}} src={grouppicture} alt=''></img>
                         <h3 style={{color:'#e9ede5',fontSize:'1.3rem',marginLeft:'1rem'}}>{groupname}</h3>
                         </div>
+                        <div style={{display:'flex'}}>
+                        <button style={{width:'10rem'}} onClick={()=>handlegroupdelete(groupid)} className='disablebtn'>Delete Group</button>
                         <button className='disablebtn'>Disable</button>
+                        </div>
                     </div>
                     <div className="chats1">
                         {filtereditemsdata.map((data) => (

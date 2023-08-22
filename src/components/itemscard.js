@@ -9,6 +9,9 @@ const Itemscard = ({ data }) => {
         })
         const json=await response.json()
         console.log(json)
+        // if(!json.success){
+        //     alert('something went wrong')
+        // }
     }
     return (
         <div>

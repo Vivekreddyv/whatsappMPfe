@@ -7,18 +7,25 @@ import logo from './utils/whatsappweblogo.png'
 const Main=()=>{
     const[name,setName]=useState()
     const[dp,setDP]=useState()
-    const groupname=(data)=>{
+    const[groupids,setGroupids] =useState()
+    const groupnamepass=(data)=>{
         setName(data)
     }
-    const grouppicture=(data)=>{
+    const grouppicturepass=(data)=>{
         setDP(data)
+    }
+    const groupidpass=(data)=>{
+        setGroupids(data)
+    }
+    const groupdeletenamepass=(data)=>{
+        setName(data)
     }
     return(
         <div className="main">
             <div className='groupsmain'>
-                <Groups groupname={groupname} grouppicture={grouppicture}/>
+                <Groups groupname={groupnamepass} grouppicture={grouppicturepass} groupid={groupidpass}/>
             </div>
-            {name?<Chats groupname={name} grouppicture={dp}/>:
+            {name?<Chats groupname={name} grouppicture={dp} groupid={groupids} groupdeletename={groupdeletenamepass}/>:
             <div className='chatsmain'>
                 <img style={{width:'32vw',height:'36vh',marginTop:'22vh',marginLeft:'18vw'}} src={logo} alt=''></img>
                 <h1 style={{color:'white',fontWeight:'100',textAlign:'center'}}>WhatsApp Marketplace</h1>
