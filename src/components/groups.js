@@ -5,9 +5,8 @@ import '../styles/addgroup.css'
 import Groupcard from './groupcard'
 const whatsapplogo = "https://play-lh.googleusercontent.com/bYtqbOcTYOlgc6gqZ2rwb8lptHuwlNE75zYJu6Bn076-hTmvd96HH-6v7S0YUAAJXoJN"
 
-const Groups = ({ groupname,grouppicture,groupid }) => {
+const Groups = ({ groupname,grouppicture,groupid,groupstatus }) => {
     const [groupactive, setGroupactive] = useState("")
-    console.log(groupactive)
     const handleactivegroup = (id) => {
         return groupactive === id ? "groupscardactive" : "groupscard"
     }
@@ -22,13 +21,12 @@ const Groups = ({ groupname,grouppicture,groupid }) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
     }
     const filtereddata=groupdata.filter((data)=>data.name.toLowerCase().includes(searchquery.toLowerCase()))
-    console.log(filtereddata)
     const handleaddgroup = async () => {
         let imageurltosend = credentials.imageurl
         if (!imageurltosend) {
             imageurltosend = 'https://saiuniversity.edu.in/wp-content/uploads/2021/02/default-img.jpg'
         }
-        const response = await fetch('http://localhost:5000/api/groups', {
+        const response = await fetch('https://whatsappmarketplace.onrender.com/api/groups', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -47,7 +45,7 @@ const Groups = ({ groupname,grouppicture,groupid }) => {
         }
     }
     const getgroupsdata = async () => {
-        const response = await fetch('http://localhost:5000/api/displaygroup', {
+        const response = await fetch('https://whatsappmarketplace.onrender.com/api/displaygroup', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -68,6 +66,10 @@ const Groups = ({ groupname,grouppicture,groupid }) => {
         let datas=data
         groupid(datas)
         setGroupactive(data._id)
+    }
+    const handlegroupstatuspass=(data)=>{
+        let datas=data
+        groupstatus(datas)
     }
     useEffect(() => {
         getgroupsdata()
@@ -101,6 +103,7 @@ const Groups = ({ groupname,grouppicture,groupid }) => {
                             handlegroupidpass(data._id)
                             handlegroupnamepass(data.name)
                             handlegrouppicturepass(data.imageurl)
+                            handlegroupstatuspass(data.groupactive)
                         }} className={`${handleactivegroup(`${data._id}`)}`}>
                             <Groupcard key={data._id} data={data} />
                         </div>

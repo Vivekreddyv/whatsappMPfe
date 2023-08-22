@@ -1,7 +1,7 @@
 import '../styles/itemscard.css'
 const Itemscard = ({ data }) => {
     const handledeleteitem=async(data)=>{
-        const response=await fetch(`http://localhost:5000/api/deleteitem/${data}`,{
+        const response=await fetch(`https://whatsappmarketplace.onrender.com/api/deleteitem/${data}`,{
             method:"DELETE",
             headers:{
                 'Content-Type':'application/json'
@@ -20,9 +20,9 @@ const Itemscard = ({ data }) => {
                 <img style={{ width: "18rem", height: '11rem', borderRadius: '10px' }} src={data.imageurl} alt=''></img>
                 <h2 style={{ color: 'white',marginLeft:'0.5rem',marginTop:'0.8rem',marginBottom:'0.8rem' }}>{data.name}</h2>
                 <h3 style={{ color: 'white',marginLeft:'0.5rem',marginTop:'0.8rem',marginBottom:'0.8rem' }}>{data.description}</h3>
-                <div style={{ display: 'flex' }}>
-                    <h3 style={{ color: 'white',marginLeft:'0.5rem',marginRight:'5.5rem',marginTop:'0.8rem',marginBottom:'1.5rem' }}><i class="fa-solid fa-indian-rupee-sign">&nbsp;</i>{data.price}</h3>
-                    <h3 style={{ color: 'white',marginTop:'0.8rem',marginBottom:'1.5rem' }}>{new Date(data.listeddate).toLocaleDateString('en-GB')}</h3>
+                <div style={{ display: 'flex',justifyContent:'space-between' }}>
+                    <h3 style={{ color: 'white',marginLeft:'0.5rem',marginTop:'0.8rem',marginBottom:'1.5rem' }}><i class="fa-solid fa-indian-rupee-sign">&nbsp;</i>{data.price}</h3>
+                    <h3 style={{ color: 'white',marginTop:'0.8rem',marginBottom:'1.5rem',marginRight:'1rem' }}>{new Date(data.listeddate).toLocaleDateString('en-GB')}</h3>
                 </div>
             </div>
             <button id={`buy${data.classname}`}>

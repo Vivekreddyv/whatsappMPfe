@@ -8,6 +8,7 @@ const Main=()=>{
     const[name,setName]=useState()
     const[dp,setDP]=useState()
     const[groupids,setGroupids] =useState()
+    const[groupstatus,setGroupstatus] =useState()
     const groupnamepass=(data)=>{
         setName(data)
     }
@@ -20,12 +21,15 @@ const Main=()=>{
     const groupdeletenamepass=(data)=>{
         setName(data)
     }
+    const groupstatuspass=(data)=>{
+        setGroupstatus(data)
+    }
     return(
         <div className="main">
             <div className='groupsmain'>
-                <Groups groupname={groupnamepass} grouppicture={grouppicturepass} groupid={groupidpass}/>
+                <Groups groupname={groupnamepass} grouppicture={grouppicturepass} groupid={groupidpass} groupstatus={groupstatuspass}/>
             </div>
-            {name?<Chats groupname={name} grouppicture={dp} groupid={groupids} groupdeletename={groupdeletenamepass}/>:
+            {name?<Chats groupname={name} grouppicture={dp} groupid={groupids} groupstatus={groupstatus} groupdeletename={groupdeletenamepass}/>:
             <div className='chatsmain'>
                 <img style={{width:'32vw',height:'36vh',marginTop:'22vh',marginLeft:'18vw'}} src={logo} alt=''></img>
                 <h1 style={{color:'white',fontWeight:'100',textAlign:'center'}}>WhatsApp Marketplace</h1>

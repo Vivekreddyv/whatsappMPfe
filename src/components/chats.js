@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react'
 import '../styles/chats.css'
 import '../styles/additem.css'
 import Itemscard from './itemscard'
-const Chats = ({ groupname,grouppicture,groupid,groupdeletename }) => {
+const Chats = ({ groupname, grouppicture, groupid, groupdeletename, groupstatus }) => {
     const [showaddproduct, setShowaddproduct] = useState(false)
     const [credentials, setCredentials] = useState({ name: "", description: "", price: "", seller: "", imageurl: "", classname: "" })
     const handlevalue = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
     }
     const handleaddgroup = async () => {
-        const response = await fetch('http://localhost:5000/api/itemsdata', {
+        const response = await fetch('https://whatsappmarketplace.onrender.com/api/itemsdata', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ const Chats = ({ groupname,grouppicture,groupid,groupdeletename }) => {
     }
     const [items, setItems] = useState([])
     const getchatsdata = async () => {
-        const response = await fetch('http://localhost:5000/api/displayitems', {
+        const response = await fetch('https://whatsappmarketplace.onrender.com/api/displayitems', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -41,29 +41,45 @@ const Chats = ({ groupname,grouppicture,groupid,groupdeletename }) => {
         updatedcredentials.classname = data
         setCredentials(updatedcredentials)
     }
-    const[itemssearchquery,setItemssearchquery]=useState('')
-    const handlesearchchange=(event)=>{
+    const [itemssearchquery, setItemssearchquery] = useState('')
+    const handlesearchchange = (event) => {
         setItemssearchquery(event.target.value)
     }
-    const filtereditemsdata=items.filter((data)=>
-    data.name.toLowerCase().includes(itemssearchquery.toLowerCase()))
-    const handlegroupdelete=async(data)=>{
-        const response=await fetch(`http://localhost:5000/api/deletegroup/${data}`,{
-            method:"DELETE",
-            headers:{
-                'Content-Type':'application/json'
+    const filtereditemsdata = items.filter((data) =>
+        data.name.toLowerCase().includes(itemssearchquery.toLowerCase()))
+    const handlegroupdelete = async (data) => {
+        const response = await fetch(`https://whatsappmarketplace.onrender.com/api/deletegroup/${data}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json'
             }
         })
-        const json=await response.json()
-        if(json.success){
+        const json = await response.json()
+        if (json.success) {
             handlegroupdeletepass()
         }
-        if(!json.success){
+        if (!json.success) {
             alert('something went wrong')
         }
     }
-    const handlegroupdeletepass=()=>{
+    const handlegroupdeletepass = () => {
         groupdeletename('')
+    }
+    const handlegroupstatus = async (objectstatus, groupid) => {
+        const response = await fetch(`https://whatsappmarketplace.onrender.com/api/updatestatus/${groupid}`, {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ groupactive: objectstatus })
+        })
+        const json = await response.json()
+        if(json.success){
+            handlegroupdeletepass()
+        }
+        if (!json.success) {
+            alert('something went wrong')
+        }
     }
     useEffect(() => {
         getchatsdata()
@@ -73,19 +89,28 @@ const Chats = ({ groupname,grouppicture,groupid,groupdeletename }) => {
             {!showaddproduct ?
                 <div className="chat">
                     <div className="chats">
-                        <div style={{display:'flex',alignItems:'center'}}>
-                        <img style={{width:'3rem',height:'3rem',borderRadius:'50%'}} src={grouppicture} alt=''></img>
-                        <h3 style={{color:'#e9ede5',fontSize:'1.3rem',marginLeft:'1rem'}}>{groupname}</h3>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <img style={{ width: '3rem', height: '3rem', borderRadius: '50%' }} src={grouppicture} alt=''></img>
+                            <h3 style={{ color: '#e9ede5', fontSize: '1.3rem', marginLeft: '1rem' }}>{groupname}</h3>
                         </div>
-                        <div style={{display:'flex'}}>
-                        <button style={{width:'10rem'}} onClick={()=>handlegroupdelete(groupid)} className='disablebtn'>Delete Group</button>
-                        <button className='disablebtn'>Disable</button>
+                        <div style={{ display: 'flex' }}>
+                            <button style={{ width: '10rem' }} onClick={() => handlegroupdelete(groupid)} className='disablebtn'>Delete Group</button>
+                            {groupstatus ? <button onClick={() => handlegroupstatus(false, groupid)} className='disablebtn'>Disable</button> :
+                                <button onClick={() => handlegroupstatus(true, groupid)} className='enablebtn'>Enable</button>
+                            }
+
                         </div>
                     </div>
                     <div className="chats1">
-                        {filtereditemsdata.map((data) => (
+                        {groupstatus? (
+                            filtereditemsdata.map((data) => (
                             <Itemscard key={data._id} data={data} />
-                        ))}
+                        ))
+                        ):(
+                        <div>
+                            <h1 style={{color:'white',textAlign:'center'}}>Enable the Group To see Products</h1>
+                        </div>)}
+                       
                     </div>
                     <div className="chats2">
                         <button onClick={() => setShowaddproduct(true)} className='addgroup'>+</button>
