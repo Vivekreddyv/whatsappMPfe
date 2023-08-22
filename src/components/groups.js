@@ -11,12 +11,18 @@ const Groups = ({ groupname,grouppicture }) => {
     const handleactivegroup = (id) => {
         return groupactive === id ? "groupscardactive" : "groupscard"
     }
+    const [searchquery,setSearchquery]=useState("")
+    const handlesearchquery=(event)=>{
+        setSearchquery(event.target.value)
+    }
     const [groupdata, setGroupdata] = useState([])
     const [showadd, setShowadd] = useState(false)
     const [credentials, setCredentials] = useState({ name: "", admin: "", imageurl: "" })
     const handlevalue = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
     }
+    const filtereddata=groupdata.filter((data)=>data.name.toLowerCase().includes(searchquery.toLowerCase()))
+    console.log(filtereddata)
     const handleaddgroup = async () => {
         let imageurltosend = credentials.imageurl
         if (!imageurltosend) {
@@ -83,9 +89,9 @@ const Groups = ({ groupname,grouppicture }) => {
                         <button onClick={() => setShowadd(true)} className='addgroup'>+</button>
                     </div>
                     <div style={{ height: '3rem', display: 'flex', alignItems: 'center' }}>
-                        <input className='search' placeholder='search'></input>
+                        <input className='search' placeholder='search' value={searchquery} onChange={handlesearchquery}></input>
                     </div>
-                    {groupdata.length === 0 ? null : groupdata.map((data) => (
+                    {filtereddata.length === 0 ? null : filtereddata.map((data) => (
                         <div onClick={() => {
                             setGroupactive(data._id)
                             handlegroupnamepass(data.name)
