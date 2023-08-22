@@ -1,5 +1,15 @@
 import '../styles/itemscard.css'
 const Itemscard = ({ data }) => {
+    const handledeleteitem=async(data)=>{
+        const response=await fetch(`http://localhost:5000/api/deleteitem/${data}`,{
+            method:"DELETE",
+            headers:{
+                'Content-Type':'application/json'
+            }
+        })
+        const json=await response.json()
+        console.log(json)
+    }
     return (
         <div>
             <div className={`itemcard${data.classname}`}>
@@ -15,7 +25,7 @@ const Itemscard = ({ data }) => {
             <button id={`buy${data.classname}`}>
                 BUY NOW
             </button>
-            <button className={`buybtn${data.classname}`}>
+            <button onClick={()=>handledeleteitem(data._id)} className={`buybtn${data.classname}`}>
                 DELETE
             </button>
         </div>
