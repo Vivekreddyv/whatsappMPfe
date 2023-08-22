@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import '../styles/chats.css'
 import '../styles/additem.css'
 import Itemscard from './itemscard'
-const Chats = ({groupname}) => {
+const Chats = ({ groupname,grouppicture }) => {
     const [showaddproduct, setShowaddproduct] = useState(false)
-    const [credentials, setCredentials] = useState({ name: "",description:"",price:"",seller:"", imageurl: "", classname: "" })
+    const [credentials, setCredentials] = useState({ name: "", description: "", price: "", seller: "", imageurl: "", classname: "" })
     const handlevalue = (event) => {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
     }
@@ -14,7 +14,7 @@ const Chats = ({groupname}) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: credentials.name, description: credentials.description,price: credentials.price,seller: credentials.seller,group: groupname,classname: credentials.classname, imageurl: credentials.imageurl })
+            body: JSON.stringify({ name: credentials.name, description: credentials.description, price: credentials.price, seller: credentials.seller, group: groupname, classname: credentials.classname, imageurl: credentials.imageurl })
         })
         const json = await response.json()
         if (!json.success) {
@@ -24,21 +24,21 @@ const Chats = ({groupname}) => {
             setShowaddproduct(false)
         }
     }
-    const[items,setItems]=useState([])
-    const getchatsdata=async()=>{
-        const response=await fetch('http://localhost:5000/api/displayitems',{
-            method:"POST",
-            headers:{
-                'Content-Type':'application/json'
+    const [items, setItems] = useState([])
+    const getchatsdata = async () => {
+        const response = await fetch('http://localhost:5000/api/displayitems', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
             }
         })
-        const json=await response.json()
-        const data=json[0].filter((data)=>data.group===groupname)
+        const json = await response.json()
+        const data = json[0].filter((data) => data.group === groupname)
         setItems(data)
     }
-    const handleclass=(data)=>{
-        let updatedcredentials={...credentials}
-        updatedcredentials.classname=data
+    const handleclass = (data) => {
+        let updatedcredentials = { ...credentials }
+        updatedcredentials.classname = data
         setCredentials(updatedcredentials)
     }
     useEffect(() => {
@@ -49,14 +49,20 @@ const Chats = ({groupname}) => {
             {!showaddproduct ?
                 <div className="chat">
                     <div className="chats">
+                        <div style={{display:'flex',alignItems:'center'}}>
+                        <img style={{width:'3rem',height:'3rem',borderRadius:'50%'}} src={grouppicture} alt=''></img>
+                        <h3 style={{color:'#e9ede5',fontSize:'1.3rem',marginLeft:'1rem'}}>{groupname}</h3>
+                        </div>
+                        <button className='disablebtn'>Disable</button>
                     </div>
                     <div className="chats1">
-                        {items.map((data)=>(
-                            <Itemscard key={data._id} data={data}/>
-                        ))} 
+                        {items.map((data) => (
+                            <Itemscard key={data._id} data={data} />
+                        ))}
                     </div>
                     <div className="chats2">
-                    <button onClick={() => setShowaddproduct(true)} className='addgroup'>+</button>
+                        <button onClick={() => setShowaddproduct(true)} className='addgroup'>+</button>
+                        <input className='searchitems' placeholder="search items"></input>
                     </div>
                 </div> : <div className='groupadditem'>
                     <div className='groupadd1item'>
@@ -70,8 +76,8 @@ const Chats = ({groupname}) => {
                         <input className='groupinputitem' placeholder='price' name='price' value={credentials.price} onChange={handlevalue}></input>
                         <input className='groupinputitem' placeholder='seller Name' name='seller' value={credentials.seller} onChange={handlevalue}></input>
                         <div>
-                        <button className='itembtn' onClick={()=>handleclass('left')}>BUYER</button>
-                        <button className='itembtn' onClick={()=>handleclass('right')}>SELLER</button>
+                            <button className='itembtn' onClick={() => handleclass('left')}>BUYER</button>
+                            <button className='itembtn' onClick={() => handleclass('right')}>SELLER</button>
                         </div>
                         <button onClick={handleaddgroup} className='tickitem'><i class="fa-solid fa-check"></i></button>
                     </div>

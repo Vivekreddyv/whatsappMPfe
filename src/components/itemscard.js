@@ -8,7 +8,7 @@ const Itemscard = ({ data }) => {
                 <h2 style={{ color: 'white',marginLeft:'0.5rem',marginTop:'0.8rem',marginBottom:'0.8rem' }}>{data.name}</h2>
                 <h3 style={{ color: 'white',marginLeft:'0.5rem',marginTop:'0.8rem',marginBottom:'0.8rem' }}>{data.description}</h3>
                 <div style={{ display: 'flex' }}>
-                    <h3 style={{ color: 'white',marginLeft:'0.5rem',marginRight:'6rem',marginTop:'0.8rem',marginBottom:'1.5rem' }}><i class="fa-solid fa-indian-rupee-sign"></i>{data.price}</h3>
+                    <h3 style={{ color: 'white',marginLeft:'0.5rem',marginRight:'5.5rem',marginTop:'0.8rem',marginBottom:'1.5rem' }}><i class="fa-solid fa-indian-rupee-sign">&nbsp;</i>{data.price}</h3>
                     <h3 style={{ color: 'white',marginTop:'0.8rem',marginBottom:'1.5rem' }}>{new Date(data.listeddate).toLocaleDateString('en-GB')}</h3>
                 </div>
             </div>

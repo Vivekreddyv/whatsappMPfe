@@ -5,8 +5,9 @@ import '../styles/addgroup.css'
 import Groupcard from './groupcard'
 const whatsapplogo = "https://play-lh.googleusercontent.com/bYtqbOcTYOlgc6gqZ2rwb8lptHuwlNE75zYJu6Bn076-hTmvd96HH-6v7S0YUAAJXoJN"
 
-const Groups = ({ groupname }) => {
+const Groups = ({ groupname,grouppicture }) => {
     const [groupactive, setGroupactive] = useState("")
+    console.log(groupactive)
     const handleactivegroup = (id) => {
         return groupactive === id ? "groupscardactive" : "groupscard"
     }
@@ -53,6 +54,10 @@ const Groups = ({ groupname }) => {
         let data = datas
         groupname(data)
     }
+    const handlegrouppicturepass=(datas)=>{
+        let data=datas
+        grouppicture(data)
+    }
     useEffect(() => {
         getgroupsdata()
     }, [])
@@ -82,8 +87,9 @@ const Groups = ({ groupname }) => {
                     </div>
                     {groupdata.length === 0 ? null : groupdata.map((data) => (
                         <div onClick={() => {
-                            setGroupactive(data.name)
+                            setGroupactive(data._id)
                             handlegroupnamepass(data.name)
+                            handlegrouppicturepass(data.imageurl)
                         }} className={`${handleactivegroup(`${data._id}`)}`}>
                             <Groupcard key={data._id} data={data} />
                         </div>
