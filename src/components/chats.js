@@ -41,6 +41,12 @@ const Chats = ({ groupname,grouppicture }) => {
         updatedcredentials.classname = data
         setCredentials(updatedcredentials)
     }
+    const[itemssearchquery,setItemssearchquery]=useState('')
+    const handlesearchchange=(event)=>{
+        setItemssearchquery(event.target.value)
+    }
+    const filtereditemsdata=items.filter((data)=>
+    data.name.toLowerCase().includes(itemssearchquery.toLowerCase()))
     useEffect(() => {
         getchatsdata()
     })
@@ -56,13 +62,13 @@ const Chats = ({ groupname,grouppicture }) => {
                         <button className='disablebtn'>Disable</button>
                     </div>
                     <div className="chats1">
-                        {items.map((data) => (
+                        {filtereditemsdata.map((data) => (
                             <Itemscard key={data._id} data={data} />
                         ))}
                     </div>
                     <div className="chats2">
                         <button onClick={() => setShowaddproduct(true)} className='addgroup'>+</button>
-                        <input className='searchitems' placeholder="search items"></input>
+                        <input className='searchitems' placeholder="search items" value={itemssearchquery} onChange={handlesearchchange}></input>
                     </div>
                 </div> : <div className='groupadditem'>
                     <div className='groupadd1item'>
